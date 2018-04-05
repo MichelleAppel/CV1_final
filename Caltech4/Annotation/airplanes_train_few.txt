@@ -1,0 +1,10 @@
+airplanes_train/img001   1
+airplanes_train/img002   1
+airplanes_train/img003   1
+airplanes_train/img004   1
+airplanes_train/img005   1
+cars_train/img001        0
+cars_train/img002        0
+cars_train/img003        0
+cars_train/img004        0
+cars_train/img005        0
