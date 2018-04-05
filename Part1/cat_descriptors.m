@@ -54,5 +54,6 @@ function [ descriptors ] = cat_descriptors(color_space, sift_method, no_vocab_im
     descriptors = descriptors(1:counter-1, :); % Cut off zeros
     descriptors = descriptors( any(descriptors, 2), :); % Delete zero rows
     size(descriptors)
-    save(strcat('descriptors/', color_space, '_', sift_method, '_', no_vocab_images), 'descriptors');
+    
+    save(strcat('descriptors/', color_space, '_', sift_method, '_', int2str(no_vocab_images)), 'descriptors');
 end

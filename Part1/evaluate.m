@@ -10,7 +10,8 @@ function [ predicted_label, accuracy ] = evaluate(class, color_space, sift_metho
 % trained_model     % add description
 % save_results      % add description
 
-addpath ../Dependencies/liblinear/windows/
+%addpath ../Dependencies/liblinear/windows/
+addpath ../Dependencies/liblinear-2.20/matlab/
 
 if nargin < 1
     class = 'airplanes';

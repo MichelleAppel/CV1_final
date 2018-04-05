@@ -1,7 +1,8 @@
 function [ model ] = SVM(class, color_space, sift_method, ...
     vocab_size, vocabulary, save_model)
 % https://www.csie.ntu.edu.tw/~cjlin/liblinear/
-addpath ../Dependencies/liblinear/windows/
+%addpath ../Dependencies/liblinear/windows/
+addpath ../Dependencies/liblinear-2.20/matlab/
 
 if nargin < 2
     class = 'airplanes';
@@ -15,15 +16,13 @@ end
 if nargin < 5
     % load vocabulary
     file_name = strcat('vocab/visual_vocab_', ...
-        sift_method, '_', color_space, '_', int2str(vocab_size), '.mat');
+        int2str(vocab_size), '_', sift_method, '_', color_space, '.mat');
     vocabulary_wrap = load(file_name);
     vocabulary = vocabulary_wrap.visual_vocab;
 end
 if nargin < 6
     save_model = true;
 end
-
-d = dir(['../Caltech4/Annotation', '/*.txt']);
 
 [ vocab_size, ~ ] = size(vocabulary);
 
@@ -66,15 +65,16 @@ end
 fclose(fid);
 
 if save_model
-   save(strcat('dataset/vocab_size_', string(vocab_size) ,'/data_', color_space, '_', sift_method, '_', class), 'labels', 'features');
+   save(strcat('dataset/vocab_size_', int2str(vocab_size) , '/data_', ...
+       color_space, '_', sift_method, '_', class), 'labels', 'features');
 end
 
-% TODO: Use Liblinear instead of fitcsvm
 disp('Start training SVM...')
 model = train(labels, sparse(features));
 
 if save_model
-   save(strcat('models/vocab_size_', string(vocab_size) ,'/model_', color_space, '_', sift_method, '_', class), 'model');
+   save(strcat('models/vocab_size_', int2str(vocab_size) , '/model_', ...
+       color_space, '_', sift_method, '_', class), 'model');
 end
 disp('Finished training, model saved.')
 
