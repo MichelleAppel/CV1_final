@@ -24,25 +24,22 @@ if nargin < 3
 end
 if nargin < 4
     % load vocabulary
-    file_name = strcat('vocab/visual_vocab_', ...
-        sift_method, '_', color_space, '_', int2str(vocab_size), '.mat');
-    vocabulary_wrap = load(file_name);
-    vocabulary = vocabulary_wrap.visual_vocab;
+    file_name = strcat('vocab_', int2str(vocab_size), '_', color_space, '_', sift_method, '_');
+    vocabulary_wrap = load(fullfile('vocabs', strcat('vocab_size_', int2str(vocab_size)), file_name));
+    vocabulary = vocabulary_wrap.visual_vocab;    
 end
 if nargin < 5
     % load trained model
-    file_name = strcat('models/vocab_size_', int2str(vocab_size), ...
-        '/model_', color_space, '_', sift_method, '_', class, '.mat');
-    trained_model_wrap = load(file_name);
+    file_name = strcat('model_', color_space, '_', sift_method, '_', class);
+    trained_model_wrap = load(fullfile('models', strcat('vocab_size_', int2str(vocab_size)), file_name));
     trained_model = trained_model_wrap.model;
 end
 if nargin < 6
-    save_results = false;
+    save_results = true;
 end
 
-% 80% copied from SVM.m, TODO: put overlapping code into one function
-path = strcat('../Caltech4/Annotation/', class, '_train.txt');
-%path = strcat('../Caltech4/Annotation/test.txt');
+% TODO: put overlapping code (with SVM.m) into one function
+path = strcat('../Caltech4/Annotation/', class, '_test.txt');
 fid = fopen(path);
 line = fgetl(fid); % Line in annotation file
 line_count = 1;

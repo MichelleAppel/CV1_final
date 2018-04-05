@@ -1,3 +1,5 @@
+% This code doesn't work anymore (paths and directories have been changed).
+
 % v = load('vocab/visual_vocab_sift_gray_400.mat');
 % vocab = v.visual_vocab;
 % SVM('airplanes', vocab, 'gray', 'sift');

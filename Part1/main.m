@@ -1,11 +1,23 @@
+function main(class, color_space, sift_method, K, no_vocab_images)
+
 run('../Dependencies/vlfeat-0.9.21/toolbox/vl_setup')
 
 % init parameters
-class = 'faces';
-color_space = 'gray';
-sift_method = 'sift';
-K = 50;
-no_vocab_images = 10;
+if nargin < 1
+    class = 'motorbikes';
+end
+if nargin < 2
+    color_space = 'gray';
+end
+if nargin < 3
+    sift_method = 'sift';
+end
+if nargin < 4
+    K = 400;
+end
+if nargin < 5
+    no_vocab_images = 1000;
+end
 
 % load (if already created) or create descriptors
 file_name = strcat(color_space, '_', sift_method, '_', ...
@@ -15,7 +27,7 @@ if exist(fullfile('descriptors', file_name), 'file')
     descriptors = d.descriptors;
     disp('Loaded descriptors.');
 else
-    descriptors = cat_descriptors(color_space, sift_method);
+    descriptors = cat_descriptors(color_space, sift_method, no_vocab_images);
     disp('Created descriptors.');
 end
     
@@ -44,5 +56,8 @@ end
 
 % predict on test data using trained model
 [ predicted_label, accuracy ] = evaluate(class, color_space, sift_method, K, visual_vocab, model, true);
+disp('Finished prediction on test data.')
+disp('Predicted labels:')
 disp(predicted_label)
+disp('Accuracy:')
 disp(accuracy)

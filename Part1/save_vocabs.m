@@ -1,3 +1,5 @@
+% This code doesn't work anymore (paths and directories have been changed).
+
 d = load('descriptors\descriptors_gray_sift.mat');
 des = d.descriptors;
 save_visual_vocabulary(des, 'gray', 'sift', 400, 1000000, 400);

@@ -15,9 +15,11 @@ if nargin < 4
 end
 if nargin < 5
     % load vocabulary
-    file_name = strcat('vocab/visual_vocab_', ...
-        int2str(vocab_size), '_', sift_method, '_', color_space, '.mat');
-    vocabulary_wrap = load(file_name);
+    %file_name = strcat('vocabs/vocab_', ...
+    %    int2str(vocab_size), '_', sift_method, '_', color_space, '.mat');
+    %vocabulary_wrap = load(file_name);
+    file_name = strcat('vocab_', int2str(vocab_size), '_', color_space, '_', sift_method);
+    vocabulary_wrap = load(fullfile('vocabs', strcat('vocab_size_', int2str(vocab_size)), file_name));
     vocabulary = vocabulary_wrap.visual_vocab;
 end
 if nargin < 6
@@ -26,7 +28,7 @@ end
 
 [ vocab_size, ~ ] = size(vocabulary);
 
-file_name = strcat(class, '_test.txt');
+file_name = strcat(class, '_train.txt');
 path = strcat('../Caltech4/Annotation/', file_name);
 
 fid = fopen(path);
@@ -65,16 +67,23 @@ end
 fclose(fid);
 
 if save_model
-   save(strcat('dataset/vocab_size_', int2str(vocab_size) , '/data_', ...
-       color_space, '_', sift_method, '_', class), 'labels', 'features');
+   %save(strcat('datasets/vocab_size_', int2str(vocab_size) , '/data_', ...
+   %    color_space, '_', sift_method, '_', class), 'labels', 'features');
+   file_name = strcat('data_', color_space, '_', sift_method, '_', class);
+   save(fullfile('datasets', strcat('vocab_size_', int2str(vocab_size)), ...
+       file_name), 'labels', 'features');
+
 end
 
 disp('Start training SVM...')
 model = train(labels, sparse(features));
 
-if save_model
-   save(strcat('models/vocab_size_', int2str(vocab_size) , '/model_', ...
-       color_space, '_', sift_method, '_', class), 'model');
+if save_model  
+   %save(strcat('models/vocab_size_', int2str(vocab_size) , '/model_', ...
+   %    color_space, '_', sift_method, '_', class), 'model');
+   file_name = strcat('model_', color_space, '_', sift_method, '_', class);
+   save(fullfile('models', strcat('vocab_size_', int2str(vocab_size)), ...
+       file_name), 'model');
 end
 disp('Finished training, model saved.')
 

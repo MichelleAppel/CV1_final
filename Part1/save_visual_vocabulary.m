@@ -19,11 +19,13 @@ function [ visual_vocab ] = save_visual_vocabulary(descriptors, color_space, sif
        K = 400; % Default vocabulary size 
     end
     if nargin < 7
-       filename = strcat(sift_method, '_', color_space, '_', string(K)); % Default filename
+       file_name = strcat('vocab_', int2str(K), '_', color_space, '_', sift_method); % Default filename
     end
     
     %save(strcat('descriptors/descriptors_', filename), 'descriptors') % Save the descriptors
     
     visual_vocab = visual_vocabulary(descriptors, K); % Create visual vocabulary
-    save(strcat('vocab/visual_vocab_', filename), 'visual_vocab') % Save the visual vocabulary
+    %save(strcat('vocabs/visual_vocab_', file_name), 'visual_vocab') % Save the visual vocabulary
+    save(fullfile('vocabs', strcat('vocab_size_', int2str(K)), file_name), 'visual_vocab');
+     
 end
