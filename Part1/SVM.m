@@ -1,8 +1,5 @@
 function [ model ] = SVM(class, color_space, sift_method, ...
     vocab_size, vocabulary, save_model)
-% https://www.csie.ntu.edu.tw/~cjlin/liblinear/
-%addpath ../Dependencies/liblinear/windows/
-addpath ../Dependencies/liblinear-2.20/matlab/
 
 if nargin < 2
     class = 'airplanes';
@@ -76,7 +73,7 @@ if save_model
 end
 
 disp('Start training SVM...')
-model = train(labels, sparse(features));
+model = fitcsvm(features, labels);
 
 if save_model  
    %save(strcat('models/vocab_size_', int2str(vocab_size) , '/model_', ...
