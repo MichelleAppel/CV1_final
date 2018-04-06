@@ -80,7 +80,7 @@ disp(features(1:10, :))
 
 %%%%% PREDICT
 
-[ predicted_label, score ] = predict(trained_model, labels(1:i-1, :), features(1:i-1, :));
+[ predicted_label, score ] = predict(trained_model, features(1:i-1, :));
 
 % results = [num2cell(score) num2cell(predicted_label) num2cell(labels(1:i-1)) image_names(1:i-1)];
 % 
