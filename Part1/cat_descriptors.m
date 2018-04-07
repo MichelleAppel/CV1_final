@@ -52,7 +52,6 @@ end
 
 descriptors = descriptors(1:counter-1, :); % Cut off zeros
 descriptors = descriptors( any(descriptors, 2), :); % Delete zero rows (which aren't there if correct)
-size(descriptors)
 
 save(strcat('descriptors/', color_space, '_', sift_method, '_', int2str(no_vocab_images)), 'descriptors');
 end
