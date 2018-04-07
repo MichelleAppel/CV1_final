@@ -1,5 +1,7 @@
 function [net, info, expdir] = finetune_cnn(varargin)
 
+addpath '../Dependencies/liblinear-2.20/matlab'
+
 %% Define options
 %run(fullfile(fileparts(mfilename('fullpath')), ...
 %  '..', '..', '..', 'matlab', 'vl_setupnn.m')) ;

@@ -1,5 +1,6 @@
 %% main function 
 
+addpath '../Dependencies/liblinear-2.20/matlab'
 
 %% fine-tune cnn
 
