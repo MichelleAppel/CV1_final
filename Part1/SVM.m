@@ -25,7 +25,7 @@ end
 
 [ vocab_size, ~ ] = size(vocabulary);
 
-file_name = strcat(class, '_train.txt');
+file_name = strcat(class, '_train_balanced.txt');
 path = strcat('../Caltech4/Annotation/', file_name);
 
 fid = fopen(path);

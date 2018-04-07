@@ -4,7 +4,7 @@ run('../Dependencies/vlfeat-0.9.21/toolbox/vl_setup')
 
 % init parameters
 if nargin < 1
-    class = 'motorbikes';
+    class = 'airplanes';
 end
 if nargin < 2
     color_space = 'gray';

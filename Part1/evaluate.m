@@ -1,4 +1,4 @@
-function [ predicted_label, score ] = evaluate(class, color_space, sift_method, ...
+function [ predicted_label, accuracy ] = evaluate(class, color_space, sift_method, ...
     vocab_size, vocabulary, trained_model, save_results)
 % EVALUATE  Uses a trained binary classifier to predict on test data.
 % trai1ned_model     One of 32 trained binary classifiers.
@@ -80,7 +80,13 @@ disp(features(1:10, :))
 
 %%%%% PREDICT
 
-[ predicted_label, score ] = predict(trained_model, features(1:i-1, :));
+[ predicted_label, scores ] = predict(trained_model, features(1:i-1, :));
+
+similar_ind = predicted_label == labels(1:i-1, :);
+
+accuracy = sum(similar_ind)/length(similar_ind);
+
+disp(scores);
 
 % results = [num2cell(score) num2cell(predicted_label) num2cell(labels(1:i-1)) image_names(1:i-1)];
 % 
