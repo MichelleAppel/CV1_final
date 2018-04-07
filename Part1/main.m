@@ -32,10 +32,10 @@ else
 end
     
 % load (if already created) or create visual vocabulary
-file_name = strcat('visual_vocab', '_', int2str(K), '_', ...
+file_name = strcat('vocab', '_', int2str(K), '_', ...
     color_space, '_', sift_method, '.mat');
-if exist(fullfile('vocab', file_name), 'file')
-    v = load(fullfile('vocab', file_name));
+if exist(fullfile('vocabs', strcat('vocab_size_', int2str(K)), file_name), 'file')
+    v = load(fullfile('vocabs', strcat('vocab_size_', int2str(K)), file_name));
     visual_vocab = v.visual_vocab;
     disp('Loaded visual vocabulary.');
 else
@@ -55,7 +55,8 @@ else
 end
 
 % predict on test data using trained model
-[ predicted_label, accuracy ] = evaluate(class, color_space, sift_method, K, visual_vocab, model, true);
+[ predicted_label, accuracy ] = evaluate(class, color_space, sift_method, K, ...
+    visual_vocab, model, true, 'test');
 disp('Finished prediction on test data.')
 disp('Predicted labels:')
 disp(predicted_label)
