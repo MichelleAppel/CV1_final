@@ -1,5 +1,5 @@
 function [ model ] = SVM(class, color_space, sift_method, ...
-    vocab_size, vocabulary, save_model)
+    vocab_size, vocabulary, save_model, train_model_on)
 
 if nargin < 2
     class = 'airplanes';
@@ -12,20 +12,21 @@ if nargin < 4
 end
 if nargin < 5
     % load vocabulary
-    %file_name = strcat('vocabs/vocab_', ...
-    %    int2str(vocab_size), '_', sift_method, '_', color_space, '.mat');
-    %vocabulary_wrap = load(file_name);
-    file_name = strcat('vocab_', int2str(vocab_size), '_', color_space, '_', sift_method);
-    vocabulary_wrap = load(fullfile('vocabs', strcat('vocab_size_', int2str(vocab_size)), file_name));
+    file_str = strcat('vocabs/vocab_size_', int2str(vocab_size), ...
+        'vocab_', int2str(vocab_size), '_', color_space, '_', sift_method);
+    vocabulary_wrap = load(file_str);
     vocabulary = vocabulary_wrap.visual_vocab;
 end
 if nargin < 6
     save_model = true;
 end
+if nargin < 7
+    train_model_on = 'train_balanced'; % either 'train' or 'train_balanced'
+end
 
 [ vocab_size, ~ ] = size(vocabulary);
 
-file_name = strcat(class, '_train_balanced.txt');
+file_name = strcat(class, '_', train_model_on, '.txt');
 path = strcat('../Caltech4/Annotation/', file_name);
 
 fid = fopen(path);
@@ -64,23 +65,18 @@ end
 fclose(fid);
 
 if save_model
-   %save(strcat('datasets/vocab_size_', int2str(vocab_size) , '/data_', ...
-   %    color_space, '_', sift_method, '_', class), 'labels', 'features');
-   file_name = strcat('data_', color_space, '_', sift_method, '_', class);
-   save(fullfile('datasets', strcat('vocab_size_', int2str(vocab_size)), ...
-       file_name), 'labels', 'features');
-
+    file_str = strcat('datasets/vocab_size_', int2str(vocab_size), ...
+        '/data_', color_space, '_', sift_method, '_', class);
+    save(file_str, 'labels', 'features');
 end
 
 disp('Start training SVM...')
 model = fitcsvm(features, labels);
 
-if save_model  
-   %save(strcat('models/vocab_size_', int2str(vocab_size) , '/model_', ...
-   %    color_space, '_', sift_method, '_', class), 'model');
-   file_name = strcat('model_', color_space, '_', sift_method, '_', class);
-   save(fullfile('models', strcat('vocab_size_', int2str(vocab_size)), ...
-       file_name), 'model');
+if save_model
+    file_str = strcat('models/vocab_size_', int2str(vocab_size), ...
+        '/model_', color_space, '_', sift_method, '_', class);
+    save(file_str, 'model');
 end
 disp('Finished training, model saved.')
 
