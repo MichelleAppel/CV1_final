@@ -4,7 +4,7 @@ run('../Dependencies/vlfeat-0.9.21/toolbox/vl_setup')
 
 % init parameters
 if nargin < 1
-    class = 'airplanes';
+    class = 'cars';
 end
 if nargin < 2
     color_space = 'RGB';
@@ -13,7 +13,7 @@ if nargin < 3
     sift_method = 'sift';
 end
 if nargin < 4
-    K = 800;
+    K = 50;
 end
 if nargin < 5
     no_vocab_images = 1000;
