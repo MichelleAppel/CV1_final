@@ -105,4 +105,6 @@ if save_results
     save(file_str, 'sorted_results');
 end
 
+disp(accuracy);
+
 end
