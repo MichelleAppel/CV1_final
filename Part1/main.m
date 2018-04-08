@@ -4,10 +4,10 @@ run('../Dependencies/vlfeat-0.9.21/toolbox/vl_setup')
 
 % init parameters
 if nargin < 1
-    class = 'faces';
+    class = 'motorbikes';
 end
 if nargin < 2
-    color_space = 'norm_rgb';
+    color_space = 'RGB';
 end
 if nargin < 3
     sift_method = 'sift';

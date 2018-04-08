@@ -1,4 +1,4 @@
-d = load('datasets\vocab_size_50\data_norm_rgb_sift_faces.mat');
+d = load('datasets\vocab_size_50\data_rgb_sift_faces.mat');
 features = d.features;
 td = tsne(features);
 color = zeros(length(td), 1);

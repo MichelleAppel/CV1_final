@@ -1,4 +1,4 @@
-function [ class ] = classify(image, vocab_size, color_space, sift_method)
+function [ class, scores ] = classify(image, vocab_size, color_space, sift_method)
     
     dir = strcat('models/vocab_size_', string(vocab_size), '/');
     file = strcat('model_', color_space, '_', sift_method, '_');
@@ -22,8 +22,7 @@ function [ class ] = classify(image, vocab_size, color_space, sift_method)
     
     BoF = bag_of_features(image, vocabulary, color_space, sift_method)'; % Bag of features for the image
     BoF = BoF';
-    disp(size(BoF))
-    
+
     [ ~, airplane_score ] = predict(airplane_model, BoF);
     [ ~, cars_score ] = predict(cars_model, BoF);
     [ ~, faces_score ] = predict(faces_model, BoF);
@@ -31,8 +30,5 @@ function [ class ] = classify(image, vocab_size, color_space, sift_method)
 
     scores = [ airplane_score(2), cars_score(2), faces_score(2), motorbikes_score(2) ];
 
-    disp(scores)
-
     [ ~, class ] = max(scores);
-   
 end
