@@ -1,12 +1,13 @@
 function [net, info, expdir] = finetune_cnn(varargin)
 
-addpath '../Dependencies/liblinear-2.20/windows'
-
+%addpath '../Dependencies/liblinear-2.20/windows'
+addpath '../Dependencies/liblinear-2.20/matlab'
 
 %% Define options
 %run(fullfile(fileparts(mfilename('fullpath')), ...
 %  '..', '..', '..', 'matlab', 'vl_setupnn.m')) ;
-run('../Dependencies/matconvnet-1.0-beta25/matlab/vl_setupnn.m')
+%run('../Dependencies/matconvnet-1.0-beta25/matlab/vl_setupnn.m')
+run('../Dependencies/matconvnet-1.0-beta23/matlab/vl_setupnn.m')
 
 opts.modelType = 'lenet' ;
 [opts, varargin] = vl_argparse(opts, varargin) ;
@@ -22,11 +23,11 @@ opts.contrastNormalization = true ;
 opts.networkType = 'simplenn' ;
 opts.train = struct() ;
 opts = vl_argparse(opts, varargin) ;
-if ~isfield(opts.train, 'gpus'), opts.train.gpus = []; end;
-
-opts.train.gpus = [1];
-
-
+if ~isfield(opts.train, 'gpus')
+    opts.train.gpus = []; % do not use GPU
+else
+    opts.train.gpus = [1]; % use GPU (if possible)
+end
 
 %% update model
 
@@ -37,10 +38,11 @@ net = update_model();
 if exist(opts.imdbPath, 'file')
   imdb = load(opts.imdbPath) ;
 else
-  imdb = getCaltechIMDB() ;
-  mkdir(opts.expDir) ;
-  save(opts.imdbPath, '-struct', 'imdb') ;
+    imdb = getCaltechIMDB() ;
+    mkdir(opts.expDir) ;
+    save(opts.imdbPath, '-struct', 'imdb') ;
 end
+
 
 %%
 net.meta.classes.name = imdb.meta.classes(:)' ;
@@ -54,7 +56,7 @@ trainfn = @cnn_train ;
   'expDir', opts.expDir, ...
   net.meta.trainOpts, ...
   opts.train, ...
-  'val', find(imdb.images.set == 2)) ;
+  'val', imdb.images.set == 2) ; % was: 'val', find(imdb.images.set == 2)) ;
 
 expdir = opts.expDir;
 end
@@ -82,7 +84,7 @@ end
 % -------------------------------------------------------------------------
 function imdb = getCaltechIMDB()
 % -------------------------------------------------------------------------
-% Preapre the imdb structure, returns image data with mean image subtracted
+% Prepare the imdb structure, returns image data with mean image subtracted
 classes = {'airplanes', 'cars', 'faces', 'motorbikes'};
 splits = {'train', 'test'};
 
@@ -147,13 +149,13 @@ for k = 1 : length(theDirectories)
 
 end
 %%
-% subtract mean
+% Subtract mean
 dataMean = mean(data(:, :, :, sets == 1), 4);
 data = bsxfun(@minus, data, dataMean);
 
 imdb.images.data = single(data);
-imdb.images.labels = single(labels);
-imdb.images.set = single(sets);
+imdb.images.labels = single(labels).';
+imdb.images.set = single(sets).';
 imdb.meta.sets = {'train', 'val'} ;
 imdb.meta.classes = classes;
 
