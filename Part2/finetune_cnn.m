@@ -1,4 +1,4 @@
-function [net, info, expdir] = finetune_cnn(varargin)
+ befunction [net, info, expdir] = finetune_cnn(varargin)
 
 addpath '../Dependencies/liblinear-2.20/windows'
 

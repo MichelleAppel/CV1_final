@@ -1,8 +1,8 @@
-d = load('datasets\vocab_size_50\data_opponent_sift_cars.mat');
+d = load('datasets\vocab_size_400\data_RGB_dsift_airplanes.mat');
 features = d.features;
 td = tsne(features);
 color = zeros(length(td), 1);
-color(300:end, :) = 5;
+color(374:end, :) = 5;
 color(end, :) = 8;
 
 figure
