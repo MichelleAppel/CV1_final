@@ -15,7 +15,10 @@ nets.fine_tuned.layers{end}.type = 'softmax';
 
 fprintf('\n\n\n\n\n\n\n\n');
 
-fprintf('CNN: fine_tuned_accuracy: %0.2f, SVM: pre_trained_accuracy: %0.2f, fine_tuned_accuracy: %0.2f\n', nn.accuracy, svm.pre_trained.accuracy(1), svm.fine_tuned.accuracy(1));
+%fprintf('CNN: fine_tuned_accuracy: %0.2f, SVM: pre_trained_accuracy: %0.2f, fine_tuned_accuracy: %0.2f\n', nn.accuracy, svm.pre_trained.accuracy(1), svm.fine_tuned.accuracy(1));
+fprintf('CNN: fine_tuned_accuracy: %0.2f\n', nn.accuracy);
+fprintf('SVM: pre_trained_accuracy: %0.2f\n', svm.pre_trained.accuracy(1));
+%fprintf('fine_tuned_accuracy: %0.2f', svm.fine_tuned.accuracy(1));
 
 end
 
