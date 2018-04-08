@@ -10,11 +10,11 @@ d = load(strcat('datasets\vocab_size_', vocab_size, '\data_', ...
 features = d.features;
 td = tsne(features);
 
-if strcmp(class, 'airplanes') || strcmp(class, 'motorbikes')
+if strcclass == 'airplanes' || class == 'motorbikes'
     boundary = 374;
-elseif strcmp(class, 'faces')
+elseif class = 'faces'
     boundary = 300;
-elseif strcmp(class, 'cars')
+elseif class = 'motorbikes'
     boundary = 347;
 end
 
