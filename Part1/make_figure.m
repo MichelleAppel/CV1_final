@@ -1,9 +1,11 @@
 
-% class = 'faces';
-class = 'motorbikes';
+% class = 'airplanes';
+% class = 'cars';
+%  class = 'faces';
+ class = 'motorbikes';
 
 color_space = 'opponent';
-sift_method = 'sift';
+sift_method = 'dsift';
 vocab_size = '50';
 
 d = load(strcat('datasets\vocab_size_', vocab_size, '\data_', ...
