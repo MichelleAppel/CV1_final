@@ -23,7 +23,7 @@ s1 = scatter(td(1:boundary, 1), td(1:boundary, 2), 5, [0 0.2 0.8]);
 hold on
 s2 = scatter(td(boundary+1:end, 1), td(boundary+1:end, 2), 5, [0 0.8 0]);
 
-if strcmpt(color_space, 'norm_rgb')
+if strcmp(color_space, 'norm_rgb')
    color_space = 'nRGB';
 end
 
