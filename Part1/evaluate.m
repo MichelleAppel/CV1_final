@@ -23,7 +23,7 @@ if nargin < 3
 end
 if nargin < 5
     % load vocabulary
-    file_name = strcat('vocab_', int2str(vocab_size), '_', color_space, '_', sift_method, '_');
+    file_name = strcat('vocab_', int2str(vocab_size), '_', color_space, '_', sift_method, '.mat');
     vocabulary_wrap = load(fullfile('vocabs', strcat('vocab_size_', int2str(vocab_size)), file_name));
     vocabulary = vocabulary_wrap.visual_vocab;    
 end
