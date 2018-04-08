@@ -1,13 +1,13 @@
- befunction [net, info, expdir] = finetune_cnn(varargin)
+function [net, info, expdir] = finetune_cnn(varargin)
 
-%addpath '../Dependencies/liblinear-2.20/windows'
-addpath '../Dependencies/liblinear-2.20/matlab'
+addpath '../Dependencies/liblinear-2.20/windows'
+%addpath '../Dependencies/liblinear-2.20/matlab'
 
 %% Define options
 %run(fullfile(fileparts(mfilename('fullpath')), ...
 %  '..', '..', '..', 'matlab', 'vl_setupnn.m')) ;
-%run('../Dependencies/matconvnet-1.0-beta25/matlab/vl_setupnn.m')
-run('../Dependencies/matconvnet-1.0-beta23/matlab/vl_setupnn.m')
+run('../Dependencies/matconvnet-1.0-beta25/matlab/vl_setupnn.m')
+%run('../Dependencies/matconvnet-1.0-beta23/matlab/vl_setupnn.m')
 
 opts.modelType = 'lenet' ;
 [opts, varargin] = vl_argparse(opts, varargin) ;

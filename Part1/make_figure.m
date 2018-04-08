@@ -1,8 +1,10 @@
 
+% class = 'faces';
 class = 'motorbikes';
-color_space = 'norm_rgb';
-sift_method = 'dsift';
-vocab_size = '400';
+
+color_space = 'opponent';
+sift_method = 'sift';
+vocab_size = '50';
 
 d = load(strcat('datasets\vocab_size_', vocab_size, '\data_', ...
     color_space, '_', sift_method, '_', class, '.mat'));
