@@ -1,4 +1,5 @@
-function main(class, color_space, sift_method, K, no_vocab_images)
+function demo(class, color_space, sift_method, K, no_vocab_images)
+% DEMO: takes a few minutes to run
 
 run('../Dependencies/vlfeat-0.9.21/toolbox/vl_setup')
 
@@ -23,8 +24,8 @@ end
 file_name = strcat('vocab', '_', int2str(K), '_', ...
 color_space, '_', sift_method, '.mat');
 if ~exist(fullfile('vocabs', strcat('vocab_size_', int2str(K)), file_name), 'file')
-    file_name = strcat(color_space, '_', sift_method, '_', ...
-        int2str(no_vocab_images), '.mat');
+%    file_name = strcat(color_space, '_', sift_method, '_', ...
+%        int2str(no_vocab_images), '.mat');
 %     if exist(fullfile('descriptors', file_name), 'file') 
 %         d = load(fullfile('descriptors', file_name))
 %         descriptors = d.descriptors;
@@ -59,10 +60,11 @@ else
 end
 
 % predict on test data using trained model
-[ predicted_label, accuracy ] = evaluate(class, color_space, sift_method, K, ...
+[ ~, ~ ] = evaluate(class, color_space, sift_method, K, ...
     visual_vocab, model, true, 'test');
-% disp('Finished prediction on test data.')
-% disp('Predicted labels:')
-% disp(predicted_label)
-% disp('Accuracy:')
-% disp(accuracy)
+
+% create html file (if models of all 4 classes are trained)
+%create_html_files(vocab_size, color_space, sift_method);
+
+end
+
