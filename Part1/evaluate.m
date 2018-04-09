@@ -90,8 +90,6 @@ similar_ind = predicted_label == labels(1:i-1, :);
 
 accuracy = sum(similar_ind)/length(similar_ind);
 
-disp(scores);
-
 results = [num2cell(scores) num2cell(predicted_label) num2cell(labels(1:i-1)) image_names(1:i-1)];
 
 [~, idx] = sort(scores(:, 1), 'descend');
